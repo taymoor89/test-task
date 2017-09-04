@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.list-group-item:focus {
+  outline: none !important;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  background: #ccc;
+  border-color: #ddd;
+  color: #555;
+}
+
+.rank-1 {
+  color: green;
+}
+
+.rank-2 {
+  color: orange;
+}
+
+.rank-3 {
+  color: red;
+}
