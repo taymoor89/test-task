@@ -1,3 +1,4 @@
+import { parseResponse } from '../utils';
 import { SELECT_VALUES } from './values-actions';
 
 export const FETCH_ATTRIBUTES_PENDING = 'FETCH_ATTRIBUTES_PENDING';
@@ -15,13 +16,7 @@ export function fetchAttributes() {
 		dispatch({type: FETCH_ATTRIBUTES_PENDING});
 
 		fetch(url)
-			.then(response => {
-				var contentType = response.headers.get("content-type");
-				if(contentType && contentType.includes("application/json")) {
-					return response.json();
-				}
-				throw new TypeError("Oops, we haven't got JSON!");
-			})
+			.then(parseResponse)
 			.then(data => {
 				dispatch({
 					type: FETCH_ATTRIBUTES_FULLFILLED,

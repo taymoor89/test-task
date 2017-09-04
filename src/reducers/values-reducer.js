@@ -33,11 +33,10 @@ export default function (state = {
 		}
 
 		case DESELECT_VALUES: {
-			const idsToSelect = action.payload.map(value => value.id);
-			console.log(idsToSelect);
+			const idsToDeSelect = action.payload.map(value => value.id);
 			const data = state.data.map(value => {
 				let selected = value.selected;
-				if(idsToSelect.indexOf(value.id) > -1)
+				if(idsToDeSelect.indexOf(value.id) > -1)
 					selected = false;
 				return {...value, selected};
 			});

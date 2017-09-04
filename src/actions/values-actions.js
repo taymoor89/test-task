@@ -1,4 +1,5 @@
-import {sortBy, find} from 'lodash';
+import { sortBy, find } from 'lodash';
+import { parseResponse } from '../utils';
 import { 
 	ADD_ATTRIBUTE_VALUE, REMOVE_ATTRIBUTE_VALUE 
 } from './attributes-actions';
@@ -17,13 +18,7 @@ export function fetchValues() {
 		dispatch({type: FETCH_VALUES_PENDING});
 
 		fetch(url)
-			.then(response => {
-				var contentType = response.headers.get("content-type");
-				if(contentType && contentType.includes("application/json")) {
-					return response.json();
-				}
-				throw new TypeError("Oops, we haven't got JSON!");
-			})
+			.then(parseResponse)
 			.then(data => {
 				data = sortBy(data, item => {
 					return item.rank;
@@ -44,6 +39,8 @@ export function fetchValues() {
 
 export function updateValue(attribute, value){
 	return function(dispatch) {
+		if(!attribute) return;
+
 		const url = 'http://demo0113689.mockable.io/attribute_values?attribute_id=1&value_id=2';
 		const {id, values} = attribute;
 		const found = find(values, {id: value.id});
@@ -61,13 +58,7 @@ export function updateValue(attribute, value){
 		const options = {method: 'PATCH'};
 		
 		fetch(url, options)
-			.then(response => {
-				var contentType = response.headers.get("content-type");
-				if(contentType && contentType.includes("application/json")) {
-					return response.json();
-				}
-				throw new TypeError("Oops, we haven't got JSON!");
-			})
+			.then(parseResponse)
 			.then(response => {
 				//TODO: Dispatch some action
 			})
